@@ -1,0 +1,34 @@
+function solution(A, K) {
+   
+  //Initialise variables
+  var array = [];
+  var sizeOfArray = A.length;
+  var newIndex;
+   
+  //Loop through array
+  for(var i=0; i < sizeOfArray; i++){
+    
+    /*
+     * If rotating array more than the size of the array
+     * Get the remainder/modulus that will fit into the array size 
+     * and apply new index to current index plus rotation value K
+     */
+    if(K > sizeOfArray){
+		  K = K % sizeOfArray;
+		  newIndex = i + K;
+	   }else{
+		  newIndex = i + K;
+		}
+		
+		// Handle zero indexed array
+		if(newIndex > (sizeOfArray - 1)){
+			newIndex = newIndex - sizeOfArray;
+		}
+			
+			//Get the value at current index and insert to new array at new index
+			var value = A[i];
+		  array.splice(newIndex, 0, value);
+		}
+		
+		return array;
+}
