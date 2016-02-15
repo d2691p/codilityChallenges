@@ -1,0 +1,70 @@
+A zero-indexed array A consisting of N integers is given. The dominator of array A is the value that occurs in more than half of the elements of A.
+For example, consider array A such that
+A[0] = 3    A[1] = 4    A[2] =  3
+A[3] = 2    A[4] = 3    A[5] = -1
+A[6] = 3    A[7] = 3
+The dominator of A is 3 because it occurs in 5 out of 8 elements of A (namely in those with indices 0, 2, 4, 6 and 7) and 5 is more than a half of 8.
+Write a function
+function solution(A);
+that, given a zero-indexed array A consisting of N integers, returns index of any element of array A in which the dominator of A occurs. The function should return −1 if array A does not have a dominator.
+
+Assume that:
+
+N is an integer within the range [0..100,000];
+each element of array A is an integer within the range [−2,147,483,648..2,147,483,647].
+For example, given array A such that
+
+A[0] = 3    A[1] = 4    A[2] =  3
+A[3] = 2    A[4] = 3    A[5] = -1
+A[6] = 3    A[7] = 3
+the function may return 0, 2, 4, 6 or 7, as explained above.
+
+SOLUTION:
+
+function solution(A) {
+    //Initialise dominator to -1 (no dominator)
+    var dominator = -1;
+    var currentVal;
+    
+    //Sort the array for easier manipulation
+    var sortedA = A.sort();
+    var distance = 0;
+    
+    //If there is only 1 element in an array, return index of 0
+    //If it is an empty array, return dominator as -1
+    if(A.length == 1){
+      dominator = 0;
+      return dominator;
+    }else if(A.length < 1){
+        return dominator;
+    }
+    
+    //Loop through array, finding the first and last index of a value in the sorted array
+    for(var i = 0; i < sortedA.length; i++){
+        currentVal = A[i];
+        
+        var firstIndex = sortedA.indexOf(currentVal);
+        var lastIndex = sortedA.lastIndexOf(currentVal);
+        
+        // Must be more than 1 occurence of value, calculate the difference between indexes
+        // Push loop to skip to last index (avoid duplicate looping)
+        if(firstIndex != lastIndex){
+            distance = lastIndex - firstIndex + 1;  
+            i = lastIndex;
+        }else{
+            //Will not be a dominator so continue through loop
+            continue;
+        }
+        
+        //If the distance between indexes is greater than half of the array size, this is a dominator
+        //Assign the dominator based on the index of the array value in A
+        if(distance > (sortedA.length / 2)){
+            dominator = A.indexOf(A[i]);
+            break;
+        }else{
+            dominator = -1;
+        }
+
+    }
+    return dominator;
+}
