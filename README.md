@@ -1,0 +1,2 @@
+# codilityChallenges
+Codility JavaScript Challenges
