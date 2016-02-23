@@ -11,3 +11,5 @@ Current challenges and solutions in Git:
 2. Cyclic Rotation
 
 3. Dominator
+
+4. Nesting 
